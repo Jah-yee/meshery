@@ -82,12 +82,10 @@ The chart's `version`/`appVersion` and the CRD bundles under `crds/` and
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
 | podAnnotations | object | `{}` |  |
-| podSecurityContext | object | `{"runAsNonRoot":true,"runAsUser":65532,"seccompProfile":{"type":"RuntimeDefault"}}` | Parity with the operator's own config/manager |
+| podSecurityContext | object | runAsNonRoot 65532, RuntimeDefault seccomp | Parity with the operator's own config/manager |
 | replicaCount | int | `1` |  |
-| resources | object | `{"limits":{"cpu":"500m","memory":"256Mi"},"requests":{"cpu":"100m","memory":"64Mi"}}` | Parity with the operator's own config/manager/manager.yaml. |
-| securityContext.allowPrivilegeEscalation | bool | `false` |  |
-| securityContext.capabilities.drop[0] | string | `"ALL"` |  |
-| securityContext.readOnlyRootFilesystem | bool | `true` |  |
+| resources | object | limits 500m/256Mi, requests 100m/64Mi | Parity with the operator's own config/manager/manager.yaml. |
+| securityContext | object | no privilege escalation, read-only rootfs, drop ALL | Container security context |
 | service.annotations | object | `{}` |  |
 | service.port | int | `8443` | TLS metrics endpoint (authn/authz-filtered; bind scrapers to the `meshery-metrics-reader` ClusterRole) |
 | service.type | string | `"ClusterIP"` |  |

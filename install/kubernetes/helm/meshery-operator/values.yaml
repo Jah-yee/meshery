@@ -51,12 +51,15 @@ podAnnotations: {}
 annotations: {}
 
 # -- Parity with the operator's own config/manager
+# @default -- runAsNonRoot 65532, RuntimeDefault seccomp
 podSecurityContext:
   runAsNonRoot: true
   runAsUser: 65532
   seccompProfile:
     type: RuntimeDefault
 
+# -- Container security context
+# @default -- no privilege escalation, read-only rootfs, drop ALL
 securityContext:
   allowPrivilegeEscalation: false
   readOnlyRootFilesystem: true
@@ -92,6 +95,7 @@ ingress:
   #      - chart-example.local
 
 # -- Parity with the operator's own config/manager/manager.yaml.
+# @default -- limits 500m/256Mi, requests 100m/64Mi
 resources:
   limits:
     cpu: 500m
