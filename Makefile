@@ -415,7 +415,7 @@ check-go:
 #-----------------------------------------------------------------------------
 .PHONY: helm-docs helm-operator-docs helm-meshery-docs helm-operator-lint helm-operator-appversion-check helm-lint
 ## Generate all Meshery Helm Chart documentation in markdown format.
-helm-docs: helm-operator-docs helm-meshery-docs
+helm-docs: helm-operator-docs
 
 # Regenerates install/kubernetes/helm/meshery-operator/README.md from
 # README.md.gotmpl and the `# --` comments in values.yaml. Version badges are
@@ -426,10 +426,15 @@ helm-operator-docs: dep-check
 	GO111MODULE=on go install github.com/norwoodj/helm-docs/cmd/helm-docs@v1.14.2
 	$(GOPATH)/bin/helm-docs -c install/kubernetes/helm/meshery-operator
 
-## Generate Meshery Server and Adapters Helm Chart documentation in markdown format.
-helm-meshery-docs: dep-check
-	GO111MODULE=on go get github.com/norwoodj/helm-docs/cmd/helm-docs
-	$(GOPATH)/bin/helm-docs -c install/kubernetes/helm/meshery
+# install/kubernetes/helm/meshery/README.md and the nine adapter subchart READMEs
+# are hand-maintained: that chart has no README.md.gotmpl and no `# --` comments
+# in values.yaml, so helm-docs would delete every curated value description.
+## Refuse to regenerate the Meshery Server and Adapter Helm Chart docs; they are hand-maintained.
+helm-meshery-docs:
+	@echo "make helm-meshery-docs is disabled: install/kubernetes/helm/meshery and its adapter subcharts have hand-maintained READMEs."
+	@echo "Running helm-docs against them would delete every curated value description."
+	@echo "Edit those READMEs by hand, or migrate the chart to README.md.gotmpl plus '# --' comments in values.yaml (as meshery-operator was) before re-enabling this target."
+	@exit 1
 
 ## Lint all of Meshery's Helm Charts
 helm-lint: helm-operator-lint helm-meshery-lint
