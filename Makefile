@@ -419,8 +419,11 @@ helm-docs: helm-operator-docs
 
 # Regenerates install/kubernetes/helm/meshery-operator/README.md from
 # README.md.gotmpl and the `# --` comments in values.yaml. Version badges are
-# rendered from Chart.yaml. helm-docs v1.14.2 is installed with go install so
-# this target does not rewrite go.mod; a second run leaves the tree clean.
+# rendered from Chart.yaml. The chart-search-root also covers the meshery-broker
+# and meshery-meshsync subcharts, so their READMEs are regenerated too - from
+# helm-docs' default template, since neither carries a README.md.gotmpl.
+# helm-docs v1.14.2 is installed with go install so this target does not rewrite
+# go.mod; a second run leaves the tree clean.
 ## Generate Meshery Operator Helm Chart docs from README.md.gotmpl and values.yaml comments.
 helm-operator-docs: dep-check
 	GOBIN=$(GOPATH)/bin GO111MODULE=on go install github.com/norwoodj/helm-docs/cmd/helm-docs@v1.14.2
