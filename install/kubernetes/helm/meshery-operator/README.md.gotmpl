@@ -34,9 +34,11 @@ The chart's `version`/`appVersion` and the CRD bundles under `crds/` and
 - **Conversion**: both CRDs serve `v1alpha1` and `v1alpha2` (storage) with
   conversion strategy `None`, which is exact while the two schemas are
   field-identical — no webhook and no cert-manager required. When the schemas
-  diverge upstream, enable `webhook.enabled` (chart-generated self-signed
-  certificate) or `webhook.certManager.enabled` (cert-manager v1) and the CRD
-  update Job patches webhook conversion onto the CRDs.
+  diverge upstream, `webhook.enabled` is required: it renders the conversion
+  webhook. `webhook.certManager.enabled` only chooses cert-manager v1 instead
+  of the chart-generated self-signed certificate; it does not install the
+  webhook by itself. The CRD update Job then patches webhook conversion onto
+  the CRDs.
 
 {{ template "chart.maintainersSection" . }}
 
