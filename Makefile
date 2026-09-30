@@ -414,7 +414,7 @@ check-go:
 # Meshery Helm Charts
 #-----------------------------------------------------------------------------
 .PHONY: helm-docs helm-operator-docs helm-meshery-docs helm-operator-lint helm-operator-appversion-check helm-lint
-## Generate all Meshery Helm Chart documentation in markdown format.
+## Generate the Meshery Operator Helm Chart documentation in markdown format.
 helm-docs: helm-operator-docs
 
 # Regenerates install/kubernetes/helm/meshery-operator/README.md from
@@ -423,7 +423,7 @@ helm-docs: helm-operator-docs
 # this target does not rewrite go.mod; a second run leaves the tree clean.
 ## Generate Meshery Operator Helm Chart docs from README.md.gotmpl and values.yaml comments.
 helm-operator-docs: dep-check
-	GO111MODULE=on go install github.com/norwoodj/helm-docs/cmd/helm-docs@v1.14.2
+	GOBIN=$(GOPATH)/bin GO111MODULE=on go install github.com/norwoodj/helm-docs/cmd/helm-docs@v1.14.2
 	$(GOPATH)/bin/helm-docs -c install/kubernetes/helm/meshery-operator
 
 # install/kubernetes/helm/meshery/README.md and the nine adapter subchart READMEs
