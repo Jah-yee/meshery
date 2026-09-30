@@ -417,13 +417,13 @@ check-go:
 ## Generate all Meshery Helm Chart documentation in markdown format.
 helm-docs: helm-operator-docs helm-meshery-docs
 
-# WARNING: this overwrites install/kubernetes/helm/meshery-operator/README.md, which is
-# hand-maintained. values.yaml has no `# --` comments and there is no README.md.gotmpl,
-# so helm-docs would delete that README's "CRD lifecycle" section and every per-value
-# description. Read the note at the top of that file before running this.
-## Generate Meshery Operator Helm Chart docs. WARNING: overwrites the hand-maintained meshery-operator README - read the note at its top first.
+# Regenerates install/kubernetes/helm/meshery-operator/README.md from
+# README.md.gotmpl and the `# --` comments in values.yaml. Version badges are
+# rendered from Chart.yaml. helm-docs v1.14.2 is installed with go install so
+# this target does not rewrite go.mod; a second run leaves the tree clean.
+## Generate Meshery Operator Helm Chart docs from README.md.gotmpl and values.yaml comments.
 helm-operator-docs: dep-check
-	GO111MODULE=on go get github.com/norwoodj/helm-docs/cmd/helm-docs
+	GO111MODULE=on go install github.com/norwoodj/helm-docs/cmd/helm-docs@v1.14.2
 	$(GOPATH)/bin/helm-docs -c install/kubernetes/helm/meshery-operator
 
 ## Generate Meshery Server and Adapters Helm Chart documentation in markdown format.
