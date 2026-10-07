@@ -7,7 +7,6 @@ vi.mock('@rjsf/utils', () => ({
 }));
 
 vi.mock('@sistent/sistent', () => ({
-  useTheme: () => ({ palette: { icon: { default: '#000000' } } }),
   DeleteIcon: () => <svg data-testid="delete-icon" />,
   FormControl: ({ children }: any) => <div data-testid="form-control">{children}</div>,
   Grid2: ({ children }: any) => <div>{children}</div>,
