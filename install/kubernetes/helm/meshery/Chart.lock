@@ -1,0 +1,30 @@
+dependencies:
+- name: meshery-istio
+  repository: ""
+  version: 0.7.0
+- name: meshery-linkerd
+  repository: ""
+  version: 0.7.0
+- name: meshery-consul
+  repository: ""
+  version: 0.7.0
+- name: meshery-kuma
+  repository: ""
+  version: 0.7.0
+- name: meshery-nsm
+  repository: ""
+  version: 0.7.0
+- name: meshery-traefik-mesh
+  repository: ""
+  version: 0.7.0
+- name: meshery-app-mesh
+  repository: ""
+  version: 0.7.0
+- name: meshery-cilium
+  repository: ""
+  version: 0.7.0
+- name: meshery-operator
+  repository: file://../meshery-operator
+  version: 1.0.5
+digest: sha256:583c1d325c3b22eeafa2675ee2f38b13c842231f958a10499f87d9d586cbbda2
+generated: "2026-09-29T09:02:51.857261105Z"
